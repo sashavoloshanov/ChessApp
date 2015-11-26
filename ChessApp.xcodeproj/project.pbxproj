@@ -300,6 +300,7 @@
 				90C0345D1BFD1E4F004E2B45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
