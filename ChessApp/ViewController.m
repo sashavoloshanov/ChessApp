@@ -62,14 +62,27 @@ int count = 0;
                                                              _viewWidth - 20,
                                                              _viewWidth - 20)];
     self.staticChess.layer.cornerRadius = CGRectGetWidth(self.staticChess.frame) / 2;
-    self.staticChess.backgroundColor = [UIColor greenColor];
+    self.staticChess.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.staticChess];
 }
-
 - (void)setChessToCell {
-    self.currentChess = [[UIView alloc] initWithFrame:self.staticChess.frame];
-    self.currentChess.layer.cornerRadius = CGRectGetWidth(self.currentChess.frame) / 2;
     count++;
+    self.currentChess = [[UIView alloc] initWithFrame:self.staticChess.frame];
+    
+    UIColor *staticColor = nil;
+    UIColor *currentColor = nil;
+    if (count % 2 == 0) {
+        staticColor = [UIColor blueColor];
+        currentColor = [UIColor redColor];
+    } else {
+        staticColor = [UIColor redColor];
+        currentColor = [UIColor blueColor];
+    }
+    
+    self.currentChess.backgroundColor = currentColor;
+    self.staticChess.backgroundColor = staticColor;
+
+    self.currentChess.layer.cornerRadius = CGRectGetWidth(self.currentChess.frame) / 2;
     [self.view addSubview:self.currentChess];
 }
 
@@ -81,11 +94,10 @@ int count = 0;
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInView:self.view];
         
-        [self setChessToCell];
-        
         for (UIView *tappedCell in self.cellsArray) {
             
             if (CGRectContainsPoint(tappedCell.frame, location)) {
+                [self setChessToCell];
                 
                 [UIView animateWithDuration:1.0 animations:^{
                     self.currentChess.center = tappedCell.center;
@@ -94,12 +106,6 @@ int count = 0;
                 }
             }
         }
-//                if (count % 2 != 0) {
-//                    self.currentChess.backgroundColor = self.staticChess.backgroundColor = [UIColor blueColor];
-//                    
-//                } else {
-//                    self.currentChess.backgroundColor = self.staticChess.backgroundColor = [UIColor greenColor];
-//                }
 }
 
 
